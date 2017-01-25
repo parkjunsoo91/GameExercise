@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleGame;
 
 namespace ConsoleGame
 {
-    class Program
+    class Board
     {
-
-
-
-        static void Main(string[] args)
+        public Board()
         {
-            Game game = new Game();
-            game.RunGame();
-            Console.Read();
+
         }
+
     }
 }
