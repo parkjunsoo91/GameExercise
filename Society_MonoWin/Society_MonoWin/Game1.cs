@@ -11,6 +11,7 @@ namespace Society_MonoWin
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        ConsoleManager console;
 
         public Game1()
         {
@@ -27,6 +28,7 @@ namespace Society_MonoWin
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            console = new ConsoleManager();
 
             base.Initialize();
         }
@@ -41,6 +43,8 @@ namespace Society_MonoWin
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            console.Initialize(Content.Load<Texture2D>("Graphics/capture"), playerPosition);
         }
 
         /// <summary>
@@ -63,6 +67,7 @@ namespace Society_MonoWin
                 Exit();
 
             // TODO: Add your update logic here
+            
 
             base.Update(gameTime);
         }
@@ -76,6 +81,9 @@ namespace Society_MonoWin
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            console.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
