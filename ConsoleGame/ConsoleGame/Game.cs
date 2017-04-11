@@ -12,21 +12,19 @@ namespace ConsoleGame
         int boardHeight;
         Board board;
         UserInterface ui;
+        event EventHandler Click;
+        protected virtual void OnClick(EventArgs e)
+        {
+            EventHandler handler = Click;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
 
         public Game()
         {
             Console.WriteLine("Starting Game1");
-        }
-
-        public void RunGame()
-        {
-            InitializeGame();
-            while (true)
-            {
-                ProcessInput();
-                Update();
-                Render();
-            }
         }
 
         void InitializeGame()
@@ -35,6 +33,18 @@ namespace ConsoleGame
             boardWidth = 10;
             board = new Board();
             ui = new UserInterface();
+        }
+
+        public void RunGame()
+        {
+            InitializeGame();
+            double previous = TimeSpan.
+            while (true)
+            {
+                ProcessInput();
+                Update();
+                Render();
+            }
         }
 
         void ProcessInput()
