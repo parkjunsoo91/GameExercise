@@ -11,7 +11,12 @@ namespace Society_MonoWin
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        ConsoleManager console;
+        Player player;
+        KeyboardState currentKeyboardState;
+        KeyboardState previousKeyboardState;
+        MouseState currentMouseState;
+        MouseState previousMouseState;
+        float playerMoveSpeed;
 
         public Game1()
         {
@@ -28,7 +33,7 @@ namespace Society_MonoWin
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            console = new ConsoleManager();
+            player = new Player();
 
             base.Initialize();
         }
@@ -44,7 +49,7 @@ namespace Society_MonoWin
 
             // TODO: use this.Content to load your game content here
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            console.Initialize(Content.Load<Texture2D>("Graphics/capture"), playerPosition);
+            player.Initialize(Content.Load<Texture2D>("Graphics/capture"), playerPosition);
         }
 
         /// <summary>
@@ -82,7 +87,7 @@ namespace Society_MonoWin
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            console.Draw(spriteBatch);
+            player.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

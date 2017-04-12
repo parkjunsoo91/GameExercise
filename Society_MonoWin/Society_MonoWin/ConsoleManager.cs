@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Society_MonoWin
 {
-    public class ConsoleManager
+    public class Player
     {
         public Texture2D PlayerTexture;
         public Vector2 Position;
