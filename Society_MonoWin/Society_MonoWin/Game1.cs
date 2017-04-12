@@ -12,14 +12,20 @@ namespace Society_MonoWin
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        GameConsole console;
         Player player;
         KeyboardState currentKeyboardState;
         KeyboardState previousKeyboardState;
-        GamePadState currentGamePadState;
-        GamePadState previousGamePadState;
         MouseState currentMouseState;
         MouseState previousMouseState;
         float playerMoveSpeed;
+        SpriteFont font;
+        enum GameState
+        {
+            Start,
+            Running
+        };
+        GameState gameState;
 
         public Game1()
         {
@@ -37,6 +43,7 @@ namespace Society_MonoWin
         {
             // TODO: Add your initialization logic here
             player = new Player();
+            console = new GameConsole();
             playerMoveSpeed = 8.0f;
             TouchPanel.EnabledGestures = GestureType.FreeDrag;
 
@@ -55,6 +62,8 @@ namespace Society_MonoWin
             // TODO: use this.Content to load your game content here
             Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X, GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialize(Content.Load<Texture2D>("Graphics/capture"), playerPosition);
+            font = Content.Load<SpriteFont>("Fonts/general");
+            console.Initialize(font);
         }
 
         /// <summary>
@@ -82,6 +91,24 @@ namespace Society_MonoWin
             previousMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
             UpdatePlayer(gameTime);
+
+            switch (gameState)
+            {
+                case GameState.Start:
+                    console.WriteLine("hello");
+                    console.WriteLine("hi");
+                    console.WriteLine("hello");
+                    console.WriteLine("hdsfsafdasf");
+                    console.WriteLine("hello");
+
+                    gameState = GameState.Running;
+                    break;
+                case GameState.Running:
+                    break;
+                default:
+                    break;
+            }
+
 
             base.Update(gameTime);
         }
@@ -136,8 +163,12 @@ namespace Society_MonoWin
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            console.Draw(spriteBatch, new Vector2(20, 20));
+
             Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
             spriteBatch.Draw(player.PlayerTexture, mousePosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, "hello", new Vector2(100, 100), Color.Black);
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -25,3 +25,15 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/capture.PNG
 
+#begin Fonts/general.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/general.spritefont
+
+#begin XML/Content.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:XML/Content.xml
+
