@@ -79,6 +79,8 @@ namespace Society_MonoWin
             // TODO: Add your update logic here
             previousKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState();
+            previousMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
             UpdatePlayer(gameTime);
 
             base.Update(gameTime);
@@ -86,6 +88,22 @@ namespace Society_MonoWin
 
         private void UpdatePlayer(GameTime gameTime)
         {
+            while(TouchPanel.IsGestureAvailable)
+            {
+                GestureSample gesture = TouchPanel.ReadGesture();
+                if (gesture.GestureType == GestureType.FreeDrag)
+                {
+                    player.Position += gesture.Delta;
+                }
+            }
+            Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+            if (currentMouseState.LeftButton == ButtonState.Pressed)
+            {
+                Vector2 posDelta = mousePosition - player.Position;
+                posDelta.Normalize();
+                posDelta = posDelta * playerMoveSpeed;
+                player.Position = player.Position += posDelta;
+            }
             if (currentKeyboardState.IsKeyDown(Keys.Left))
             {
                 player.Position.X -= playerMoveSpeed;
@@ -118,6 +136,8 @@ namespace Society_MonoWin
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+            spriteBatch.Draw(player.PlayerTexture, mousePosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.End();
 
             base.Draw(gameTime);
